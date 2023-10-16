@@ -1,60 +1,11 @@
-# Digital Control Lab - Session 1
-## Description
-This project is the first session job of the Digital Control Lab, which aims to turn on and off a LED on the FPGA board, make it blinking, and use a push button as an external interrupt to control the LED blinking frequency. The project is implemented using the STM32CubeIDE, and the STM32F407ZGT6 microcontroller, and requires two packages: stm32cube_fw_f4_v1270 and stm32cube_fw_f4_v1271.
+# Digital Control Lab
 
-## How to Run the Project
-### Hardware Requirements
-- STM32F407ZGT6 microcontroller
-- FPGA board
-- LED
-- Push button
+This repository contains C++ files for Digital Control Lab sessions. The projects are coded in CubeIDE using HAL library and compiled on ST's arm processors. 
 
-### Software Requirements
-- STM32CubeIDE (version 1.11.0)
-- stm32cube_fw_f4_v1270 and stm32cube_fw_f4_v1271 packages
-### Setup
+## Contents
+In this lab we have learned:
 
-- Connect the STM32F407ZGT6 microcontroller to the FPGA board, and connect the LED to a GPIO pin.
-- Connect the push button to another GPIO pin of the microcontroller.
-- Install STM32CubeIDE and the required packages.
-- Open the project in STM32CubeIDE.
-- Configure the pin settings in the .ioc file for the LED and push button
-
-### Running the Program
-- Build and run the program on the microcontroller.
-- The LED should turn on and off periodically.
-- Press the push button to turn the LED on and off.
-- Press the push button multiple times to increase the LED blinking frequency.
-- After pressing the button four times, the frequency resets to the initial blinking frequency.
-
-## Code Explanation
-The main.c file contains the code for the project. The code initializes the microcontroller, configures the system clock, initializes the GPIO pins, and enters an infinite loop.
-``` c
-/* USER CODE BEGIN PV */
-int x=1;
-/* USER CODE END PV */
-
-while (1)
-  {
-    /* USER CODE END WHILE */
-	  	  HAL_GPIO_TogglePin(pin1_GPIO_Port,pin1_Pin);
-		  int delay = 1000/x;
-		  HAL_Delay(delay);
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
-}
-```
-
-The frequency of the LED blinking is controlled by the variable "x". The delay time is calculated based on the value of "x". When the push button is pressed, the interrupt function HAL_GPIO_EXTI_Callback is called, which increments the value of "x". If the value of "x" reaches 5, it is reset to 1.
-``` c
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-
-	  if(HAL_GPIO_ReadPin(button_GPIO_Port,button_Pin)==1) {
-		  x++;
-	  	  }
-  	  if (x==5){
-  		  x=1;
-  	  }
-}
-```
+- Basic input-output and clocks
+- external interrupts and timers
+- PWM
+- state machines and PID controller( used to control a D motor)
